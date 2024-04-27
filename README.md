@@ -13,6 +13,10 @@ npm install
 ```bash
 quasar dev
 ```
+### Start the app in development mode PWA (hot-code reloading, error reporting, etc.)
+```bash
+quasar dev -m PWA
+```
 
 
 ### Lint the files
