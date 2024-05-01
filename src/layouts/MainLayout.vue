@@ -1,17 +1,6 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated class="bg-red-14">
-      <q-toolbar>
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
-
-        <q-toolbar-title>
-          Saúde Clara
-        </q-toolbar-title>
-
-        <div>Saúde Clara v0.0.1</div>
-      </q-toolbar>
-    </q-header>
-
+  <q-layout view="hHh LpR fFf">
+    <QHeaderComponent @statusMenuLateral="toggleLeftDrawer" />
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
         <q-item-label header>
@@ -21,17 +10,19 @@
         <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
-
+    <QFooterMobile @statusMenuLateral="toggleLeftDrawer" />
     <q-page-container>
       <router-view />
     </q-page-container>
+
   </q-layout>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import EssentialLink, { EssentialLinkProps } from 'components/EssentialLink.vue';
-
+import QHeaderComponent from 'src/components/layout/QHeaderComponent.vue'
+import QFooterMobile from 'src/components/layout/QFooterMobile.vue'
 defineOptions({
   name: 'MainLayout'
 });
