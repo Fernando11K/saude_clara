@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div style="border: 1px solid red">
     <p>{{ title }}</p>
     <ul>
-      <li v-for="todo in todos" :key="todo.id" @click="increment">
+      <li v-for="todo in abacate" :key="todo.id" @click="increment">
         {{ todo.id }} - {{ todo.content }}
       </li>
     </ul>
@@ -18,13 +18,13 @@ import { Todo, Meta } from './models';
 
 interface Props {
   title: string;
-  todos?: Todo[];
+  abacate?: Todo[];
   meta: Meta;
   active: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
-  todos: () => []
+  abacate: () => []
 });
 
 const clickCount = ref(0);
@@ -33,5 +33,5 @@ function increment() {
   return clickCount.value;
 }
 
-const todoCount = computed(() => props.todos.length);
+const todoCount = computed(() => props.abacate.length);
 </script>
