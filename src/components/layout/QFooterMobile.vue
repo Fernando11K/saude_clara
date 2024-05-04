@@ -33,19 +33,12 @@
 
 <script setup>
 import { useQuasar } from 'quasar';
+import { useRouter } from 'vue-router';
+
 const q = useQuasar();
+const router = useRouter()
+const home = () => router.push('/');
+const agendaPessoal = () => router.push('/agendaPessoal');
 </script>
 
-<script>
-export default {
-  name: 'PaginaIndex',
-  methods: {
-    home() {
-      this.$router.push('/');
-    },
-    agendaPessoal() {
-      this.$router.push('/agendaPessoal');
-    },
-  },
-};
-</script>
+
