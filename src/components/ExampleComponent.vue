@@ -1,14 +1,16 @@
 <template>
-  <div style="border: 1px solid red">
-    <p>{{ title }}</p>
-    <ul>
-      <li v-for="todo in abacate" :key="todo.id" @click="increment">
-        {{ todo.id }} - {{ todo.content }}
-      </li>
-    </ul>
-    <p>Count: {{ todoCount }} / {{ meta.totalCount }}</p>
-    <p>Active: {{ active ? 'yes' : 'no' }}</p>
-    <p>Clicks on todos: {{ clickCount }}</p>
+  <div style="padding-top: 5rem">
+    <div style="border: 1px solid red">
+      <p>{{ title }}</p>
+      <ul>
+        <li v-for="todo in abacate" :key="todo.id" @click="increment">
+          {{ todo.id }} - {{ todo.content }}
+        </li>
+      </ul>
+      <p>Count: {{ todoCount }} / {{ meta.totalCount }}</p>
+      <p>Active: {{ active ? 'yes' : 'no' }}</p>
+      <p>Clicks on todos: {{ clickCount }}</p>
+    </div>
   </div>
 </template>
 
@@ -21,10 +23,10 @@ interface Props {
   abacate?: Todo[];
   meta: Meta;
   active: boolean;
-};
+}
 
 const props = withDefaults(defineProps<Props>(), {
-  abacate: () => []
+  abacate: () => [],
 });
 
 const clickCount = ref(0);
