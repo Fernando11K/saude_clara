@@ -2,34 +2,21 @@
   <div class="q-pa-sm">
     <q-input outlined v-model="text" label="Buscar Exame" class="q-my-md">
       <template v-slot:append>
-        <q-icon
-          v-if="text !== ''"
-          name="close"
-          @click="text = ''"
-          class="cursor-pointer"
-        />
+        <q-icon v-if="text" name="close" @click="text = ''" class="cursor-pointer" />
         <q-icon name="search" />
       </template>
     </q-input>
 
     <q-list separator>
-      <q-item
-        v-for="itens in 15"
-        :key="itens"
-        clickable
-        v-ripple
-        @click="detalhesExame()"
-      >
+      <q-item v-for="itens in 15" :key="itens" clickable v-ripple @click="detalhesExame">
         <q-item-section top thumbnail class="q-ml-none">
           <img src="https://cdn.quasar.dev/img/mountains.jpg" />
         </q-item-section>
 
         <q-item-section>
           <q-item-label>Single line item</q-item-label>
-          <q-item-label caption
-            >Secondary line text. Lorem ipsum dolor sit amet, consectetur
-            adipiscit elit.</q-item-label
-          >
+          <q-item-label caption>Secondary line text. Lorem ipsum dolor sit amet, consectetur
+            adipiscit elit.</q-item-label>
         </q-item-section>
 
         <q-item-section side top>
@@ -47,13 +34,11 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'PaginaIndex',
-  methods: {
-    detalhesExame() {
-      this.$router.push('/detalhesExame');
-    },
-  },
-};
+<script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+const detalhesExame = () => {
+  router.push('/detalhesExame');
+}
 </script>
