@@ -11,6 +11,7 @@
         <q-btn
           size="md"
           flat
+          round
           icon="fa-solid fa-list"
           class="fonte-footer"
           @click="home()"
