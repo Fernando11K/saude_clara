@@ -9,7 +9,7 @@ const routes: RouteRecordRaw[] = [
       { path: '/tabela', component: () => import('pages/TesteTabela.vue') },
       { path: '/detalhesExame', component: () => import('pages/DetalhesExame.vue') },
       { path: '/agendaPessoal', component: () => import('pages/AgendaPessoal.vue') },
-
+      { path: '/login', component: () => import('pages/LoginPage.vue') },
     ],
   },
 
