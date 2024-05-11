@@ -1,124 +1,46 @@
 <template>
-  <div class="login-page">
-    <div class="modal-container">
-      <div class="modal">
-        <input type="text" class="input-field" placeholder="Email" />
-        <input type="password" class="input-field" placeholder="Senha" />
-        <button class="login-button">ENTRAR</button>
-      </div>
-      <div class="overlay-modal">
-        <p class="login-text">LOGIN</p>
-      </div>
-    </div>
-  </div>
+  <q-page class="column flex-center bg-white" @click.self="mudarPosicao(false)">
+    <BoxUsuario :titulo="'Login'" ref="boxUsuario">
+      <q-form class="row justify-center" @submit.prevent="autenticar" @click.self="mudarPosicao(false)">
+        <InputUsuarioLogin v-model="login.email" :label="'Email'" class="full-width q-pa-md" @focus="mudarPosicao" />
+        <InputSenhaLogin v-model="login.senha" :label="'Senha'" class="full-width q-pa-md" @focus="mudarPosicao" />
+        <q-btn type="submit" unelevated :rounded="q.platform.is.mobile" class="q-mt-md  col-11" color="primary"
+          text-color="white" label="ENTRAR" :disabled="!login.email || !login.senha || loading" />
+        <q-btn icon='fa-brands fa-google' @click="autenticacaoGoogle" outline :rounded="q.platform.is.mobile"
+          class="q-mt-md col-11 bg-black" text-color="white" label="Fazer login com o Google" />
+        <q-separator size="1px" color="grey-4" inset class="col-12 q-my-sm q-mt-md" />
+        <span v-if="false" class="justify-center ">
+          <q-btn unelevated rounded color="positive" :to="'/criar-conta'">Criar Conta</q-btn>
+        </span>
+      </q-form>
+    </BoxUsuario>
+  </q-page>
 </template>
+<script setup lang="ts">
+
+import { ref } from 'vue';
+import InputUsuarioLogin from 'src/components/login/InputUsuarioLogin.vue';
+import InputSenhaLogin from 'src/components/login/InputSenhaLogin.vue';
+import { autenticacaoLocal, autenticacaoGoogle, loading } from 'src/service/LoginService';
+import BoxUsuario from 'src/components/common/BoxUsuario.vue';
+import { Login } from 'src/model/types/Login';
+import { useQuasar } from 'quasar';
+
+const q = useQuasar()
+const boxUsuario = ref()
+const autenticar = () => autenticacaoLocal(login.value)
+const login = ref<Login>({ email: '', senha: '' })
+
+const mudarPosicao = (status: boolean) => {
+  boxUsuario.value.alteraPosicaoCard(status)
+}
+
+</script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
-
-.modal {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 400px;
-  height: auto;
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  margin-top: 50px;
-  /* Adicionando margem superior para mover os elementos para baixo */
-}
-
-.input-field {
-  width: 100%;
+.login {
+  border: 2px solid #676767;
   padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.login-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #1976d2;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 30px;
-  /* Adicionando margem superior para mover o botão para baixo */
-}
-
-.login-button:hover {
-  background-color: #135ba1;
-}
-
-.login-text {
-  font-size: 34px;
-  font-weight: bold;
-  color: white;
-  text-align: center;
-  padding: 10px;
-}
-
-.login-page {
-  background-image: url('./../assets/img/imagemLogin.jpg');
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.modal {
-  position: absolute;
-  z-index: 1;
-  width: 400px;
-  height: 400px;
-  background-color: white;
-  border-radius: 10px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.overlay-modal {
-  position: absolute;
-  z-index: 5;
-  width: 23%;
-  height: 130px;
-  background-color: #1976d2;
-  border-radius: 10px;
-  top: calc(50% - 190px);
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.login-text {
-  font-size: 24px;
-  font-family: 'Roboto', sans-serif;
-  /* Utilizando a fonte Roboto */
-  font-weight: bold;
-  /* Deixa o texto em negrito */
-  color: white;
-  text-align: center;
-  line-height: 130px;
-}
-
-@media screen and (max-width: 768px) {
-  .overlay-modal {
-    width: 80%;
-    /* Ajustando a largura para 80% da largura do modal-container em dispositivos móveis */
-    max-width: none;
-    /* Removendo a largura máxima em dispositivos móveis */
-  }
+  border-radius: 25px;
 }
 </style>
