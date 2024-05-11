@@ -68,26 +68,18 @@
         fab
         icon="fa-solid fa-chevron-left"
         color="blue-9"
-        @click="voltar()"
+        @click="voltar"
       />
     </q-page-sticky>
   </q-page>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-export default {
-  setup() {
-    return {
-      tab: ref('infoGeral'),
-    };
-  },
-  name: 'DetalharExame',
-  methods: {
-    voltar() {
-      this.$router.push('/');
-    },
-  },
-};
+const tab = ref('infoGeral')
+const router = useRouter()
+const voltar = () => { router.push('/');}
+
 </script>
