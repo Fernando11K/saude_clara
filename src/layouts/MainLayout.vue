@@ -26,6 +26,12 @@ import QFooterMobile from 'src/components/layout/QFooterMobile.vue';
 
 const linksList: EssentialLinkProps[] = [
   {
+    title: 'Login',
+    caption: 'Entrar ou Cadastrar',
+    icon: 'fa-solid fa-user',
+    route: '/login',
+  },
+  {
     title: 'Lista de Exames',
     caption: 'Catálogo de Exames Médicos',
     icon: 'fa-solid fa-list',
