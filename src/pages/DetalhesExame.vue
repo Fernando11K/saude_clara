@@ -1,6 +1,6 @@
 <template>
-  <q-page class="row">
-    <div class="q-gutter-y-md" style="width: 100vw">
+  <q-page class="row justify-center">
+    <div class="q-gutter-y-md col-12 col-md-8">
       <q-card style="height: 100%">
         <q-tabs
           v-model="tab"
@@ -12,51 +12,42 @@
           narrow-indicator
         >
           <q-tab name="infoGeral" label="Informações Gerais" />
-          <q-tab name="preparo" label="Preparo" />
+          <q-tab name="realização" label="Realização" />
         </q-tabs>
 
         <q-separator />
 
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="infoGeral">
-            <div class="text-h5 text-bold">ULTRASSOM</div>
-
-            <div>
-              <q-img
-                src="../assets/img/ultrassom.png"
-                :ratio="16 / 9"
-                class="q-my-md"
-              />
-              <div class="text-h6 text-bold q-ma-none q-mb-sm">
-                Princípio de Funcionamento:
+            <div class="text-h5 text-bold text-uppercase">
+              {{ exame.exame }}
+            </div>
+            <div class="row">
+              <div class="col-md">
+                <q-img
+                  :src="exame.imagem"
+                  :ratio="16 / 9"
+                  class="q-my-md"
+                  style="min-width: 350px"
+                />
               </div>
-              <p>
-                Utiliza ondas sonoras de alta frequência para criar imagens das
-                estruturas internas do corpo humano. Transdutor emite e recebe
-                as ondas sonoras, que são convertidas em imagens em tempo real.
-                Aplicações Clínicas:
-              </p>
-              <div class="text-h6 text-bold q-ma-none q-mb-sm">
-                Aplicações Clínicas:
+              <div class="col-md q-ma-md">
+                <div class="text-h6 text-bold">Descrição:</div>
+                <p>{{ exame.descricao }}</p>
+                <div class="text-h6 text-bold">Princípio de Funcionamento:</div>
+                <p>{{ exame.principio }}</p>
+                <div class="text-h6 text-bold">Aplicações Clínicas:</div>
+                <p>{{ exame.aplicacoes }}</p>
               </div>
-              <p>
-                Diagnosticar condições médicas como gravidez, doenças
-                abdominais, cardíacas, musculoesqueléticas e vasculares. Guia
-                procedimentos médicos, como biópsias e punções.
-              </p>
             </div>
           </q-tab-panel>
 
-          <q-tab-panel name="preparo">
+          <q-tab-panel name="realização">
             <div>
-              <div class="text-h6 text-bold q-ma-none q-mb-sm">
-                Preparação e Procedimento:
-              </div>
-              <p>
-                Geralmente não requer preparação específica. O paciente pode ser
-                solicitado a evitar alimentos sólidos algumas horas antes do
-                exame, dependendo da área a ser examinada.
-              </p>
+              <div class="text-h6 text-bold q-ma-none q-mb-sm">Preparo:</div>
+              <p>{{ exame.preparacao }}</p>
+              <div class="text-h6 text-bold">Tempo de Execução:</div>
+              <p>{{ exame.tempo_de_execucao }}</p>
             </div>
           </q-tab-panel>
         </q-tab-panels>
@@ -74,12 +65,28 @@
   </q-page>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-const tab = ref('infoGeral')
-const router = useRouter()
-const voltar = () => { router.push('/');}
+const tab = ref('infoGeral');
+const router = useRouter();
+const voltar = () => {
+  router.push('/');
+};
+</script>
 
+<script lang="ts">
+export default {
+  mounted() {
+    // O objeto 'exame' está disponível diretamente como uma propriedade do componente
+    //console.log(this.exame);
+  },
+  computed: {
+    exame() {
+      // Retorna o objeto 'exame' da rota
+      return JSON.parse(this.$route.params.exame.toString());
+    },
+  },
+};
 </script>

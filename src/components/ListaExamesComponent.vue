@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-sm">
+  <div class="q-ma-sm">
     <q-input outlined v-model="text" label="Buscar Exame" class="q-my-md">
       <template v-slot:append>
         <q-icon
@@ -12,48 +12,66 @@
       </template>
     </q-input>
 
+    <p>Quantidade de exames catalogados: {{ qtdExames }}</p>
+
     <q-list separator>
       <q-item
-        v-for="itens in 15"
-        :key="itens"
+        v-for="exame in exames"
+        :key="exame.id"
         clickable
         v-ripple
-        @click="detalhesExame()"
+        @click="detalhesExame(exame)"
+        class="q-py-md"
       >
         <q-item-section top thumbnail class="q-ml-none">
-          <img src="https://cdn.quasar.dev/img/mountains.jpg" />
+          <img :src="exame.imagem" />
         </q-item-section>
 
         <q-item-section>
-          <q-item-label>Single line item</q-item-label>
-          <q-item-label caption
-            >Secondary line text. Lorem ipsum dolor sit amet, consectetur
-            adipiscit elit.</q-item-label
-          >
+          <q-item-label>{{ exame.exame }}</q-item-label>
+          <q-item-label caption>{{ exame.resumo }}</q-item-label>
         </q-item-section>
 
-        <q-item-section side top>
-          <q-item-label caption>meta</q-item-label>
+        <q-item-section avatar>
+          <q-item-section avatar class="absolute-right">
+            <q-icon color="blue-grey-3" name="fa-solid fa-chevron-right" />
+          </q-item-section>
         </q-item-section>
       </q-item>
     </q-list>
-
-    <!-- <p v-for="n in 15" :key="n">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit nihil
-      praesentium molestias a adipisci, dolore vitae odit, quidem consequatur
-      optio voluptates asperiores pariatur eos numquam rerum delectus commodi
-      perferendis voluptate?
-    </p> -->
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { computed } from 'vue';
+import { Exame } from './models';
+
+interface Props {
+  title: string;
+  exames?: Exame[];
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  exames: () => [],
+});
+
+const qtdExames = computed(() => props.exames.length);
+</script>
+
+<script lang="ts">
 export default {
   name: 'PaginaIndex',
   methods: {
-    detalhesExame() {
-      this.$router.push('/detalhesExame');
+    detalhesExame(exame: Exame) {
+      let exameObj = JSON.stringify(exame);
+      //console.log(exameObj);
+      this.$router.push({ name: 'detalhesExame', params: { exame: exameObj } });
     },
+  },
+  data() {
+    return {
+      text: '',
+    };
   },
 };
 </script>
