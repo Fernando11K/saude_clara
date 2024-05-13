@@ -35,7 +35,7 @@
                   <q-item-section side top class="">
                     <q-item-label caption class="q-py-sm">{{
                       agenda.dataAgendamento
-                    }}</q-item-label>
+                      }}</q-item-label>
                     <q-badge rounded color="primary" label="Agendado" class="q-my-sm q-py-sm" />
                   </q-item-section>
 
@@ -71,7 +71,7 @@
                   <q-item-section side top class="">
                     <q-item-label caption class="q-py-sm">{{
                       agenda.dataAgendamento
-                    }}</q-item-label>
+                      }}</q-item-label>
                     <q-badge rounded color="blue-grey" label="Realizado" class="q-my-sm q-py-sm" />
                   </q-item-section>
 
