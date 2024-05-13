@@ -9,12 +9,7 @@
       <div class="text-h4 text-bold">Formulário Agenda</div>
       <q-form @submit="submitForm">
         <div class="q-my-lg text-h5 text-bold">
-          <q-select
-            filled
-            v-model="agenda.exame.exame"
-            :options="options"
-            label="Exame"
-          />
+          <q-select filled v-model="agenda.exame.exame" :options="options" label="Exame" />
         </div>
         <!-- <div class="q-my-lg text-h5 text-bold">
         <q-date
@@ -44,49 +39,22 @@
 </template>
 
 <script setup lang="ts">
-//import { Agenda } from 'components/models';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+
+import { computed, ref } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+
 
 const router = useRouter();
-const voltar = () => {
-  router.push('/agendaPessoal');
-};
+const route = useRoute()
+const voltar = () => { router.push('/agendaPessoal'); };
 
-const model = ref(null); // Referência para o valor selecionado
-const options = [
-  // Opções disponíveis no select
-  'Exame 1',
-  'Exame 2',
-  'Exame 3',
-  'Exame 4',
-  'Exame 5',
-];
+const model = ref(null);
+const options = ['Exame 1', 'Exame 2', 'Exame 3', 'Exame 4', 'Exame 5',];
 
-//const minDate = new Date().toISOString().split('T')[0];
-//const maxDate = '2030-12-31';
 
 const submitForm = () => {
-  // Aqui você pode adicionar a lógica para enviar os dados do formulário
-  // Por exemplo:
-  //console.log('Data do Agendamento:', dataAgendamento.value);
-  //router.push('/'); // Redireciona para a página inicial após o envio do formulário
+
   console.log('Enviar formulário', model);
 };
-</script>
-
-<script lang="ts">
-export default {
-  name: 'AgendaPessoal',
-  mounted() {
-    // O objeto 'agenda' está disponível diretamente como uma propriedade do componente
-    console.log(this.agenda);
-  },
-  computed: {
-    agenda() {
-      // Retorna o objeto 'agenda' da rota
-      return JSON.parse(this.$route.params.agenda.toString());
-    },
-  },
-};
+const agenda = computed(() => JSON.parse(route.params.agenda.toString()))
 </script>

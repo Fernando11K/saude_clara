@@ -7,10 +7,10 @@ export interface Meta {
   totalCount: number;
 }
 
-export interface Exame{
+export interface Exame {
   id: number;
   imagem: string;
-  exame: string;
+  nome: string;
   resumo: string;
   descricao: string;
   principio: string;
@@ -19,7 +19,7 @@ export interface Exame{
   tempo_de_execucao: string;
 }
 
-export interface Agenda{
+export interface Agenda {
   id: number,
   idExame: number,
   exame: Exame,

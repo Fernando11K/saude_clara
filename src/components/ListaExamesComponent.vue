@@ -10,7 +10,8 @@
     <p>Quantidade de exames catalogados: {{ qtdExames }}</p>
 
     <q-list separator>
-      <q-item v-for="exame in exames" :key="exame.id" clickable v-ripple @click="detalhesExame(exame)" class="q-py-md">
+      <q-item v-for="exame in exames" :key="exame.id" clickable v-ripple @click="detalhesExame(exame.id)"
+        class="q-py-md">
         <q-item-section top thumbnail class="q-ml-none">
           <img :src="exame.imagem" />
         </q-item-section>
@@ -32,7 +33,6 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { Exame } from './models';
 const props = defineProps(['exames'])
 
 const qtdExames = computed(() => props.exames.length);
@@ -41,8 +41,9 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter()
 const text = ref('')
-const detalhesExame = (exame: Exame) => {
-  router.push(`/detalhesExame${exame}`);
+const detalhesExame = (idExame: number) => {
+  console.log(idExame)
+  router.push(`detalhesExame/${idExame}`);
 }
 
 </script>
