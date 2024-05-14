@@ -11,8 +11,6 @@
 </template>
 
 <script setup lang="ts">
-
-
 const emits = defineEmits(['update:modelValue'])
 defineProps(['modelValue'])
 const atualiza = (value: string | number | null) => emits('update:modelValue', value)

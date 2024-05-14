@@ -3,7 +3,6 @@
     <q-toolbar>
       <q-btn v-show="q.platform.is.desktop || (q.platform.is.mobile && telaHorizontal)" flat dense round icon="menu"
         aria-label="Menu" @click="toggleLeftDrawer" />
-
       <q-toolbar-title class="text-center">
         <q-avatar class="pointer">
           <q-icon @click="toggleFullscreen" name="fa-solid fa-heart" />

@@ -1,12 +1,6 @@
 <template>
   <div class="q-ma-sm">
-    <q-input outlined v-model="text" label="Buscar Exame" class="q-my-md">
-      <template v-slot:append>
-        <q-icon v-if="text" name="close" @click="text = ''" class="cursor-pointer" />
-        <q-icon name="search" />
-      </template>
-    </q-input>
-
+    <InputBusca v-model="text" label="Buscar Exame" />
     <p>Quantidade de exames catalogados: {{ qtdExames }}</p>
 
     <q-list separator>
@@ -15,7 +9,6 @@
         <q-item-section top thumbnail class="q-ml-none">
           <img :src="exame.imagem" />
         </q-item-section>
-
         <q-item-section>
           <q-item-label>{{ exame.exame }}</q-item-label>
           <q-item-label caption>{{ exame.resumo }}</q-item-label>
@@ -33,6 +26,8 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import InputBusca from 'src/components/common/InputBusca.vue'
+
 const props = defineProps(['exames'])
 
 const qtdExames = computed(() => props.exames.length);
