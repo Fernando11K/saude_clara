@@ -50,6 +50,6 @@ const data = ref('')
 const dialog = ref(false)
 const agendar = () => {
     positive('Agendado com sucesso!')
-    dialog.value = false
+    //   dialog.value = false
 }
 </script>

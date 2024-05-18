@@ -18,6 +18,6 @@ const emits = defineEmits(['statusMenuLateralEsq'])
 const q = useQuasar();
 const router = useRouter()
 const home = () => router.push('/');
-const agendaPessoal = () => router.push('/agendaPessoal');
+const agendaPessoal = () => router.push('/agenda-pessoal');
 const toggleLeftDrawer = () => emits('statusMenuLateralEsq')
 </script>

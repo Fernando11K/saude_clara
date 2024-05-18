@@ -42,7 +42,7 @@ const agenda = ref(agendamentos.find((agenda: Agenda) => agenda.id == props.idAg
 const router = useRouter();
 
 const voltar = () => {
-  router.push('/agendaPessoal');
+  router.push('/agenda-pessoal');
 };
 
 const editarAgenda = (agenda: Agenda) => {

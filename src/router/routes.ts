@@ -8,7 +8,7 @@ const routes: RouteRecordRaw[] = [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: 'tabela', component: () => import('pages/TesteTabela.vue') },
       { path: 'detalhesExame/:idExame', component: () => import('pages/DetalhesExame.vue'), props: true },
-      { path: 'agendaPessoal', name: 'agendaPessoal', component: () => import('pages/AgendaPessoal.vue'), },
+      { path: 'agenda-pessoal', component: () => import('pages/AgendaPessoal.vue'), },
       { path: 'detalhesAgenda/:idAgenda', component: () => import('pages/DetalhesAgenda.vue'), props: true },
       { path: 'login', component: () => import('pages/LoginPage.vue') },
     ],

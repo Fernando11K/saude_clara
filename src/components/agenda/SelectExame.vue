@@ -1,7 +1,7 @@
 <template>
     <q-select :modelValue="modelValue" @update:modelValue='atualiza' :options="opcoesExames" :label="label" use-input
         clearable :filled="q.platform.is.desktop" :outlined="q.platform.is.mobile" :rounded="q.platform.is.mobile"
-        :dense="q.platform.is.mobile" :loading="loading" behavior="menu" @filter="filtro" />
+        :dense="q.platform.is.mobile" :loading="loading" behavior="menu" @filter="filtro" requoired />
 
 </template>
 

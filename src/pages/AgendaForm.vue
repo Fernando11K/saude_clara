@@ -46,7 +46,7 @@ import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
 const route = useRoute()
-const voltar = () => { router.push('/agendaPessoal'); };
+const voltar = () => { router.push('/agenda-pessoal'); };
 
 const model = ref(null);
 const options = ['Exame 1', 'Exame 2', 'Exame 3', 'Exame 4', 'Exame 5',];

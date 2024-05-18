@@ -42,7 +42,7 @@ const linksList: EssentialLinkProps[] = [
     title: 'Agenda Pessoal',
     caption: 'Controle sua agenda de exames',
     icon: 'fa-regular fa-calendar-check',
-    route: '/agendaPessoal',
+    route: '/agenda-pessoal',
   }
 
 ];
