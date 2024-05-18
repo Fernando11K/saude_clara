@@ -55,7 +55,7 @@ const opcoesData = (data: string) => {
   const dataAtual = retornaDataHorarioAtual();
   return date.isBetweenDates(new Date(data.split('/')?.toString()), dataAtual, data6MesFuturos, { onlyDate: true, inclusiveFrom: true, inclusiveTo: true });
 }
-const opcoesHorario = (hora: number, minutos: number | null): boolean | null | undefined => (minutos === null) ? null : validacoesHorarioAgendamento(hora, minutos);
+const opcoesHorario = (hora: number, minutos: number) => validacoesHorarioAgendamento(hora, minutos);
 
 
 

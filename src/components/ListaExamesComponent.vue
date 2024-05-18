@@ -29,15 +29,15 @@ import { computed, ref } from 'vue';
 import InputBusca from 'src/components/common/InputBusca.vue'
 
 const props = defineProps(['exames'])
+const router = useRouter()
 
 const qtdExames = computed(() => props.exames.length);
 
 import { useRouter } from 'vue-router';
 
-const router = useRouter()
 const text = ref('')
 const detalhesExame = (idExame: number) => {
-  console.log(idExame)
+
   router.push(`detalhesExame/${idExame}`);
 }
 

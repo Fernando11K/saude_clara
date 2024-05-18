@@ -12,11 +12,9 @@
                     </q-card-section>
 
                     <q-card-section class="row q-gutter-y-md">
-
-                        <SelectExame v-model="exame" :options="listaExames" label="Exame" class="col-12" />
-
+                        <SelectExame v-model="exame" :label="'Exame'" class="col-12" />
                         <InputDate v-model="data" class="col-12" />
-                        <q-input v-model="text" :outlined="q.platform.is.mobile" :filled="q.platform.is.desktop"
+                        <q-input v-model="observacao" :outlined="q.platform.is.mobile" :filled="q.platform.is.desktop"
                             :dense="q.platform.is.mobile" type="textarea" class="col-12" />
 
                     </q-card-section>
@@ -38,19 +36,14 @@ import { positive } from 'src/utils/alerta'
 import InputDate from 'src/components/common/InputDate.vue'
 import SelectExame from 'src/components//agenda/SelectExame.vue'
 import { useQuasar } from 'quasar';
-import { buscarExames } from 'src/service/ExameService'
+
 defineProps(['label'])
-const exames = ref([])
-const atualiza = () => dialog.value = !dialog.value
+const atualiza = () => { dialog.value = !dialog.value }
 defineExpose({ atualiza })
-buscarExames()
-    .then((response) => {
-        exames.value = response
+const observacao = ref('')
+const desabilitaBotao = ref(false)
+const loading = ref(false)
 
-    })
-
-
-const listaExames = exames.value.map((exame) => ({ value: exame.id, label: exame.nome }))
 const q = useQuasar()
 const exame = ref('')
 const data = ref('')

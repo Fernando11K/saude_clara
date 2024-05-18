@@ -9,8 +9,8 @@ const buscarExames = async () => {
         const listaExames: Array<Exame> = []
         onValue(exameRef, (snapshot) => {
             snapshot.forEach((childSnapshot) => {
-
                 const childData = childSnapshot.val();
+                console.log(childData)
                 listaExames.push(childData);
 
             });
