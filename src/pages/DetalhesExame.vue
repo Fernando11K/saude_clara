@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import exames from 'src/assets/exames';
 import { Exame } from 'src/components/models';
