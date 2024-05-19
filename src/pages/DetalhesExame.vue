@@ -10,7 +10,7 @@
 
         <q-separator />
 
-        <q-tab-panels v-model="tab" v-if="exame" animated>
+        <q-tab-panels v-model="tab" v-if="exame" animated swipeable>
           <q-tab-panel name="infoGeral">
             <div class="text-h5 text-bold text-uppercase">
               {{ exame.nome }}
