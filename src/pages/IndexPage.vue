@@ -9,6 +9,8 @@
           Olá, <strong> {{ nomeUsuario }}</strong>
           seja bem-vindo(a)!
         </p>
+        <p v-if="!usuario.getEmail">Para aproveitar ao máximo nossos recursos, clique no menu à esquerda e entre agora!
+        </p>
       </section>
     </q-card>
   </q-page>

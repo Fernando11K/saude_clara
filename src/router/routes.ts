@@ -6,7 +6,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '/', redirect: '/home' },
-      { path: 'home', component: () => import('pages/IndexPage.vue'), meta: { requiresAuth: true } },
+      { path: 'home', component: () => import('pages/IndexPage.vue') },
       { path: 'exames', component: () => import('pages/ExamesPage.vue') },
       { path: 'tabela', component: () => import('pages/TesteTabela.vue') },
       { path: 'detalhes-exame/:idExame', component: () => import('pages/DetalhesExame.vue'), props: true },
