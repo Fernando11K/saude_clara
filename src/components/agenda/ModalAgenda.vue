@@ -1,8 +1,8 @@
 <template>
-    <div class="q-pa-md q-gutter-sm">
+    <div class="q-pa-md q-gutter-sm ">
 
         <q-dialog v-model="dialog" :backdrop-filter="'blur(4px)'" transition-show="slide-up" transition-hide="rotate">
-            <q-card ref="card" style="min-width: 350px; min-height: 300px;">
+            <q-card ref="card" style="min-width: 350px; min-height: 300px;" class="bg-grey-1">
                 <q-form @submit.prevent="agendar">
                     <q-card-section class="bg-primary text-white ">
                         <div class="text-h6 row justify-between">
@@ -12,10 +12,10 @@
                     </q-card-section>
 
                     <q-card-section class="row q-gutter-y-md">
-                        <SelectExame v-model="exame" :label="'Exame'" class="col-12" />
+                        <SelectExame v-model="exame" :label="'Exame:'" class="col-12" />
                         <InputDate v-model="data" class="col-12" />
                         <q-input v-model="observacao" :outlined="q.platform.is.mobile" :filled="q.platform.is.desktop"
-                            :dense="q.platform.is.mobile" type="textarea" class="col-12" />
+                            :dense="q.platform.is.mobile" label="Observações:" type="textarea" class="col-12" />
 
                     </q-card-section>
 

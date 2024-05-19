@@ -48,7 +48,7 @@ const exibeMensagemValidacao = () => {
   return 'Data em formato inválido!'
 }
 
-const retornaDataHorarioAtual = () => new Date()
+const retornaDataHorarioAtual = () => new Date().setDate(new Date().getDate() + 1)
 const data6MesFuturos = date.adjustDate(retornaDataHorarioAtual(), { months: 6, hours: 23, minutes: 59 })
 const opcoesData = (data: string) => {
 

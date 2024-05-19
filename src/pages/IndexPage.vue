@@ -7,7 +7,7 @@
       <section>
         <p class="q-mt-sm text-caption">
           Olá, <strong> {{ nomeUsuario }}</strong>
-          seja bem-vindo!
+          seja bem-vindo(a)!
         </p>
       </section>
     </q-card>

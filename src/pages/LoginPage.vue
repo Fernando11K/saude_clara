@@ -9,7 +9,7 @@
         <q-btn icon='fa-brands fa-google' @click="autenticacaoGoogle" outline :rounded="q.platform.is.mobile"
           class="q-mt-md col-11 bg-black" text-color="white" label="Fazer login com o Google" />
         <q-separator size="1px" color="grey-4" inset class="col-12 q-my-sm q-mt-md" />
-        <span v-if="false" class="justify-center ">
+        <span class="justify-center ">
           <q-btn unelevated rounded color="positive" :to="'/criar-conta'">Criar Conta</q-btn>
         </span>
       </q-form>
