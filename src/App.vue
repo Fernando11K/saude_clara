@@ -1,5 +1,5 @@
 <template>
-   <router-view v-slot="{ Component, route }">
+  <router-view v-slot="{ Component, route }">
     <Transition name="slide">
       <component :is="Component" :key="route.path" />
     </Transition>
@@ -9,6 +9,12 @@
 
 <script setup lang="ts">
 import ModalUsuarioOffline from 'src/components/common/ModalUsuarioOffline.vue'
+import { onMounted } from 'vue';
+import { usuarioStore } from './stores/usuario-store';
+const usuario = usuarioStore();
+onMounted(() => {
+  usuario.preencheState()
+})
 
 </script>
 <style>

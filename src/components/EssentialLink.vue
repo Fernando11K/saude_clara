@@ -1,29 +1,36 @@
 <template>
-  <q-item clickable tag="a" :to="route" >
-    <q-item-section v-if="icon" avatar>
-      <q-icon :name="icon" />
+  <q-item v-if="item.ativo" clickable tag="a" :to="item.rota" @click="sair(item.label)" :active="!!item.ativo">
+    <q-item-section v-if="item.icon" avatar>
+      <q-icon :name="item.icon" />
     </q-item-section>
 
     <q-item-section>
-      <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>{{ caption }}</q-item-label>
+      <q-item-label>{{ item.label }}</q-item-label>
+      <q-item-label caption>{{ item.legenda }}</q-item-label>
     </q-item-section>
   </q-item>
 </template>
 
 <script setup lang="ts">
+import { signOut } from 'firebase/auth';
+import { auth } from 'src/boot/firebase'
+import { usuarioStore } from 'src/stores/usuario-store';
+import { danger, info } from 'src/utils/alerta';
 
-export interface EssentialLinkProps {
-  title: string;
-  caption?: string;
-  link?: string;
-  icon?: string;
-  route?: string;
-};
+const usuario = usuarioStore()
 
-withDefaults(defineProps<EssentialLinkProps>(), {
-  caption: '',
-  link: '#',
-  icon: '',
-});
+defineProps(['item'])
+const sair = (valor: string) => {
+  if (valor === "Sair") logout();
+
+}
+const logout = () => {
+  signOut(auth)
+    .then(() => {
+      info('Usuário deslogado com sucesso!')
+      usuario.limparDados()
+    })
+    .catch(() => danger('Usuário ou senha inválidos', 3000))
+
+}
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <q-page class="background bg-grey-2 q-pa-md">
+  <q-page class=" bg-grey-2 q-pa-md">
     <q-card class="bg-white q-pa-md">
       <CardTituloComponent :titulo="'Agenda Pessoal'" />
       <AgendaPessoalCard title="Agenda Pessoal" />

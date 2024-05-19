@@ -20,6 +20,7 @@
       <div class="text-h6 text-bold">Notas:</div>
       <p>{{ agenda.notas }}</p>
     </div>
+    <ModalAgenda ref="modalAgendaRef" label="Formulário Agenda" />
 
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-fab vertical-actions-align="right" icon="fa-solid fa-ellipsis" color="blue-9" direction="up">
@@ -37,6 +38,7 @@ import { Agenda } from 'components/models';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import agendamentos from 'src/assets/agendamentos';
+import ModalAgenda from 'src/components/agenda/ModalAgenda.vue';
 const props = defineProps(['idAgenda'])
 const agenda = ref(agendamentos.find((agenda: Agenda) => agenda.id == props.idAgenda))
 const router = useRouter();
@@ -46,12 +48,16 @@ const voltar = () => {
 };
 
 const editarAgenda = (agenda: Agenda) => {
-  let agendaqObj = JSON.stringify(agenda);
-  console.log(agendaqObj);
-  router.push({
-    name: 'agendaForm',
-    params: { agenda: agendaqObj },
-  });
+  abrirModal();
 }
+const modalAgendaRef = ref<typeof ModalAgenda | null>(null)
+
+const abrirModal = () => {
+  if (modalAgendaRef.value) {
+
+    modalAgendaRef.value.atualiza()
+  }
+}
+
 
 </script>

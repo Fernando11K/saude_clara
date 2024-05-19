@@ -5,7 +5,7 @@
       <q-list>
         <q-item-label header> Menu </q-item-label>
 
-        <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
+        <EssentialLink v-for="link in menu" :key="link.label" :item="link" />
       </q-list>
     </q-drawer>
     <QFooterMobile @statusMenuLateralEsq="toggleLeftDrawer" />
@@ -17,35 +17,13 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import EssentialLink, {
-  EssentialLinkProps,
-} from 'components/EssentialLink.vue';
+import EssentialLink from 'components/EssentialLink.vue';
 import QHeaderComponent from 'src/components/layout/QHeaderComponent.vue';
 import QFooterMobile from 'src/components/layout/QFooterMobile.vue';
+import { menu } from 'src/assets/menu';
 import { useQuasar } from 'quasar';
 const q = useQuasar()
 
-const linksList: EssentialLinkProps[] = [
-  {
-    title: 'Login',
-    caption: 'Entrar ou Cadastrar',
-    icon: 'fa-solid fa-user',
-    route: '/login',
-  },
-  {
-    title: 'Lista de Exames',
-    caption: 'Catálogo de Exames Médicos',
-    icon: 'fa-solid fa-list',
-    route: '/',
-  },
-  {
-    title: 'Agenda Pessoal',
-    caption: 'Controle sua agenda de exames',
-    icon: 'fa-regular fa-calendar-check',
-    route: '/agenda-pessoal',
-  }
-
-];
 
 const leftDrawerOpen = ref(q.platform.is.desktop);
 

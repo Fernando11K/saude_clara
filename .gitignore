@@ -37,5 +37,5 @@ yarn-error.log*
 .env.local*
 
 .firebase*
-*.cache
+.firebase/hosting/*.cache
 src/boot/firebase.ts
