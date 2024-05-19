@@ -9,23 +9,14 @@
       </q-tabs>
 
       <q-separator />
-
-      <q-tab-panels v-model="tab" animated>
+      <q-tab-panels v-model="tab" animated swipeable>
         <q-tab-panel name="examesAgendados">
-          <div class="q-my-sm">
-            <InputBusca v-model="modelValue" label="Buscar Agenda" @update:modelValue="filtro" />
-            <p>Quantidade de agendamentos: {{ qtdAgendas }}</p>
-            <ListAgendamentos :agendamentos="agendasFiltradas" label="Agendado" @datalhes="detalhesAgenda" />
-          </div>
+          <InputBusca v-model="modelValue" label="Buscar Agenda" @update:modelValue="filtro" />
+          <ListAgendamentos :agendamentos="agendasFiltradas" label="Agendado" @datalhes="detalhesAgenda" />
         </q-tab-panel>
-
         <q-tab-panel name="meuHistorico">
-          <div class="q-my-sm">
-            <InputBusca v-model="text" label="Buscar Agenda" @update:modelValue="filtro" />
-            <p>Quantidade de agendamentos: {{ qtdAgendas }}</p>
-
-            <ListAgendamentos :agendamentos="agendasFiltradas" label="Realizado" @datalhes="detalhesAgenda" />
-          </div>
+          <InputBusca v-model="text" label="Buscar Agenda" @update:modelValue="filtro" />
+          <ListAgendamentos :agendamentos="agendasFiltradas" label="Realizado" @datalhes="detalhesAgenda" />
         </q-tab-panel>
       </q-tab-panels>
     </q-card>
@@ -43,7 +34,6 @@ const modelValue = ref('')
 const router = useRouter();
 const agendasFiltradas = ref(agendamentos)
 const text = ref('')
-const qtdAgendas = computed(() => agendamentos.length);
 const tab = ref('examesAgendados');
 
 const detalhesAgenda = (idAgenda: number) => {

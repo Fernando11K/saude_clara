@@ -1,4 +1,5 @@
 <template>
+    <p>Quantidade de agendamentos: {{ qtdAgendas }}</p>
     <q-list separator>
         <q-item v-for="agenda in agendamentos" :key="agenda.id" clickable v-ripple @click="exibirDetalhes(agenda.id)"
             class="q-pa-none q-py-md">
@@ -23,7 +24,11 @@
     </q-list>
 </template>
 <script setup lang="ts">
+import { computed } from 'vue';
+
 const props = defineProps(['agendamentos', 'label'])
+const qtdAgendas = computed(() => props.agendamentos.length);
+
 const emits = defineEmits(['datalhes'])
 const exibirDetalhes = (idAgendamento: number) => {
     emits('datalhes', idAgendamento)
