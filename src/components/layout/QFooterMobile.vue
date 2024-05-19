@@ -17,7 +17,7 @@ import { useRouter } from 'vue-router';
 const emits = defineEmits(['statusMenuLateralEsq'])
 const q = useQuasar();
 const router = useRouter()
-const home = () => router.push('/');
+const home = () => router.push('/exames');
 const agendaPessoal = () => router.push('/agenda-pessoal');
 const toggleLeftDrawer = () => emits('statusMenuLateralEsq')
 </script>
