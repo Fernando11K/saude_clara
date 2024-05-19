@@ -38,7 +38,7 @@ import { useRouter } from 'vue-router';
 const text = ref('')
 const detalhesExame = (idExame: number) => {
 
-  router.push(`detalhesExame/${idExame}`);
+  router.push(`detalhes-exame/${idExame}`);
 }
 
 </script>
