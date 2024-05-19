@@ -16,7 +16,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from 'src/boot/firebase'
 import IMenu from 'src/model/interfaces/IMenu';
 import { usuarioStore } from 'src/stores/usuario-store';
-import { danger, info, warning } from 'src/utils/alerta';
+import { danger, info } from 'src/utils/alerta';
 
 const usuario = usuarioStore()
 

@@ -7,7 +7,7 @@
         <q-btn size="md" flat round icon="fa-solid fa-house " class="fonte-footer" :to="'/home'" />
         <q-btn size="md" flat round icon="fa-solid fa-list" class="fonte-footer" :to="'/exames'" />
         <q-btn size="md" flat round icon="fa-regular fa-calendar-check" class="fonte-footer" :to="'agenda-pessoal'"
-          :disabled="!usuario.getEmail" />
+          :disable="!usuario.getEmail" />
       </div>
     </q-toolbar>
   </q-footer>
