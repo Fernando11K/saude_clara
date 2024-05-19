@@ -1,5 +1,5 @@
 <template>
-  <q-item v-if="item.ativo" clickable tag="a" :to="item.rota" @click="sair(item.label)" :active="!!item.ativo">
+  <q-item v-if="item.ativo" clickable tag="a" :to="item.rota" @click="sair(item)" :active="!!item.ativo">
     <q-item-section v-if="item.icon" avatar>
       <q-icon :name="item.icon" />
     </q-item-section>
@@ -14,15 +14,15 @@
 <script setup lang="ts">
 import { signOut } from 'firebase/auth';
 import { auth } from 'src/boot/firebase'
+import IMenu from 'src/model/interfaces/IMenu';
 import { usuarioStore } from 'src/stores/usuario-store';
-import { danger, info } from 'src/utils/alerta';
+import { danger, info, warning } from 'src/utils/alerta';
 
 const usuario = usuarioStore()
 
 defineProps(['item'])
-const sair = (valor: string) => {
-  if (valor === "Sair") logout();
-
+const sair = (valor: IMenu) => {
+  if (valor.label === "Sair") logout();
 }
 const logout = () => {
   signOut(auth)

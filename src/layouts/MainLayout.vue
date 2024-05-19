@@ -16,18 +16,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 import EssentialLink from 'components/EssentialLink.vue';
 import QHeaderComponent from 'src/components/layout/QHeaderComponent.vue';
 import QFooterMobile from 'src/components/layout/QFooterMobile.vue';
 import { menu } from 'src/assets/menu';
 import { useQuasar } from 'quasar';
+import { useRoute } from 'vue-router';
 const q = useQuasar()
-
+const route = useRoute()
 
 const leftDrawerOpen = ref(q.platform.is.desktop);
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
+watchEffect(() => { if (route.path === '/login') leftDrawerOpen.value = false })
 </script>

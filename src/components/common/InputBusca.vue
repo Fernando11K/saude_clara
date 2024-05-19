@@ -1,6 +1,6 @@
 <template>
     <q-input clearable :modelValue="model" @update:modelValue="atualiza" :label="label" outlined
-        :dense="q.platform.is.mobile" :rounded="q.platform.is.mobile">
+        :dense="q.platform.is.mobile" :rounded="q.platform.is.mobile" square>
         <template v-slot:prepend>
             <q-icon name="search" />
         </template>
