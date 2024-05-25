@@ -20,7 +20,7 @@ onMounted(() => {
 <style>
 .slide-enter-active,
 .slide-leave-active {
-  transition: transform 0.15s;
+  transition: transform 0.07s;
 }
 
 .slide-enter,

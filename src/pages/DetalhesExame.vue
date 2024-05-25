@@ -59,7 +59,8 @@ const exame = ref(exames.find((exame: Exame) => exame.id == props.idExame))
 const tab = ref('infoGeral');
 const router = useRouter();
 const voltar = () => {
-  router.push('/');
+  router.push('/exames');
+
 };
 
 
