@@ -16,11 +16,9 @@
 <script setup>
 import { useQuasar } from 'quasar';
 import { usuarioStore } from 'src/stores/usuario-store';
-import { warning } from 'src/utils/alerta';
 import { useRouter } from 'vue-router';
 const emits = defineEmits(['statusMenuLateralEsq'])
 const q = useQuasar();
-const router = useRouter()
 const usuario = usuarioStore()
 
 const toggleLeftDrawer = () => emits('statusMenuLateralEsq')

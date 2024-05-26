@@ -9,7 +9,7 @@
 import { QSelectOption, useQuasar } from 'quasar';
 import { buscarExames } from 'src/service/ExameService'
 import { ref } from 'vue';
-import { Exame } from '../models';
+import { Exame } from '../../model/models';
 import { danger } from 'src/utils/alerta'
 defineProps(['modelValue', 'label'])
 const q = useQuasar()

@@ -1,4 +1,4 @@
-import { Agenda } from 'src/components/models';
+import { Agenda } from 'src/model/models';
 
 const agendamentos: Array<Agenda> = [
     {

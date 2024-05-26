@@ -57,7 +57,8 @@ import { useRouter } from 'vue-router';
 
 import { useQuasar } from 'quasar';
 import { buscarExamePorId } from 'src/service/ExameService';
-import { Exame } from 'src/components/models';
+import { Exame } from 'src/model/interfaces/Exame';
+
 const exame = ref<Exame>()
 onMounted(async () => {
   exame.value = await buscarExamePorId(props.chave) as Exame

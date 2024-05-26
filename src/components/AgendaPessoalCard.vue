@@ -27,9 +27,10 @@
 import InputBusca from './common/InputBusca.vue';
 import ListAgendamentos from 'src/components/agenda/ListAgendamentos.vue'
 import { computed, ref } from 'vue';
-import { Agenda } from './models';
+
 import { useRouter } from 'vue-router';
 import agendamentos from 'src/assets/agendamentos';
+import { Agenda } from 'src/model/interfaces/Agenda';
 const modelValue = ref('')
 const router = useRouter();
 const agendasFiltradas = ref(agendamentos)

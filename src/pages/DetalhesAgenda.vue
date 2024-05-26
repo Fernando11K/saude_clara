@@ -20,12 +20,11 @@
       <div class="text-h6 text-bold">Notas:</div>
       <p>{{ agenda.notas }}</p>
     </div>
-    <ModalAgenda ref="modalAgendaRef" label="Formulário Agenda" />
+    <ModalAgenda :agendamento="agenda" ref="modalAgendaRef" label="Formulário Agenda" />
 
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-fab vertical-actions-align="right" icon="fa-solid fa-ellipsis" color="blue-9" direction="up">
-        <q-fab-action color="negative" @click="console.log('excluie')" icon="fa-solid fa-trash-can"
-          label="Excluir Agendamento" />
+        <q-fab-action color="negative" @click="excluir" icon="fa-solid fa-trash-can" label="Excluir Agendamento" />
         <q-fab-action color="primary" @click="editarAgenda(agenda)" icon="fa-solid fa-pencil"
           label="Editar Agendamento" />
       </q-fab>
@@ -34,15 +33,20 @@
 </template>
 
 <script setup lang="ts">
-import { Agenda } from 'components/models';
+
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import agendamentos from 'src/assets/agendamentos';
 import ModalAgenda from 'src/components/agenda/ModalAgenda.vue';
+import { Agenda } from 'src/model/interfaces/Agenda';
+import { positive } from 'src/utils/alerta';
 const props = defineProps(['idAgenda'])
 const agenda = ref(agendamentos.find((agenda: Agenda) => agenda.id == props.idAgenda))
 const router = useRouter();
-
+const excluir = () => {
+  positive(`Agendamento de ${agenda.value.exame.nome} excluído de sua agenda!`)
+  voltar()
+}
 const voltar = () => {
   router.push('/agenda-pessoal');
 };

@@ -44,6 +44,13 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+
+import { useRouter } from 'vue-router';
+import { useQuasar } from 'quasar';
+import { danger } from 'src/utils/alerta';
+import { buscarExames } from 'src/service/ExameService';
+import { Exame } from 'src/model/interfaces/Exame';
+
 import InputBusca from 'src/components/common/InputBusca.vue'
 const q = useQuasar()
 const loading = ref(false)
@@ -64,12 +71,6 @@ buscarExames()
 buscarExames()
 
 const qtdExames = computed(() => exames.value.length);
-
-import { useRouter } from 'vue-router';
-import { useQuasar } from 'quasar';
-import { Exame } from './models';
-import { danger } from 'src/utils/alerta';
-import { buscarExames } from 'src/service/ExameService';
 
 const text = ref('')
 const detalhesExame = (chave: string) => {

@@ -1,5 +1,5 @@
 import { exameByIdRef, exameRef, onValue, push } from 'src/boot/firebase';
-import { Exame } from 'src/components/models';
+import { Exame } from 'src/model/models';
 const salvarExame = (exame: Exame) => {
 
     return push(exameRef, { exame })
