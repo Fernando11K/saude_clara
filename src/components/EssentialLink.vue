@@ -30,7 +30,7 @@ const logout = () => {
       info('Usuário deslogado com sucesso!')
       usuario.limparDados()
     })
-    .catch(() => danger('Usuário ou senha inválidos', 3000))
+    .catch(() => danger('Ocorreu um erro ao sair!', 3000))
 
 }
 </script>

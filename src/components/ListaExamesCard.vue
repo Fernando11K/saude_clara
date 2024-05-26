@@ -6,11 +6,11 @@
         <strong>Quantidade de exames catalogados:</strong>
         {{ qtdExames }}
       </p>
-      <q-list separator>
+      <q-list separator v-if="exames.length">
         <q-intersection v-for="exame in exames" :key="exame.id" transition="jump-right">
-          <q-item clickable v-ripple @click="detalhesExame(exame.chave)" class="q-py-md">
-            <q-item-section top thumbnail class="q-ml-none">
-              <img :src="exame.imagem" :alt="`Image do exame de ${exame.nome}`" />
+          <q-item v-if="exames.length" clickable v-ripple @click="detalhesExame(exame.chave)" class="q-py-md">
+            <q-item-section top thumbnail class="q-ml-none ">
+              <q-img :src="exame.imagem" :alt="`Image do exame de ${exame.nome}`" width="100px" />
             </q-item-section>
             <q-item-section>
               <q-item-label>{{ exame.nome }}</q-item-label>
@@ -24,6 +24,19 @@
           </q-item>
         </q-intersection>
 
+      </q-list>
+      <q-list separator v-else>
+
+
+        <q-item v-for="index in 10" :key="index">
+          <q-item-section top thumbnail class="q-ml-none ">
+            <q-skeleton width="100px" height="56px" />
+          </q-item-section>
+          <q-item-section>
+            <q-skeleton type="text" height="24px" width="200px" />
+            <q-skeleton type="text" height="24px" width="800px" />
+          </q-item-section>
+        </q-item>
       </q-list>
     </div>
   </section>
