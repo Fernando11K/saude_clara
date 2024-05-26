@@ -6,7 +6,7 @@
         <q-btn size="md" flat round icon="fa-solid fa-bars" class="fonte-footer" @click="toggleLeftDrawer" />
         <q-btn size="md" flat round icon="fa-solid fa-house " class="fonte-footer" :to="'/home'" />
         <q-btn size="md" flat round icon="fa-solid fa-list" class="fonte-footer" :to="'/exames'" />
-        <q-btn size="md" flat round icon="fa-regular fa-calendar-check" class="fonte-footer" :to="'agenda-pessoal'"
+        <q-btn size="md" flat round icon="fa-regular fa-calendar-check" class="fonte-footer" :to="'/agenda-pessoal'"
           :disable="!usuario.getEmail" />
       </div>
     </q-toolbar>
