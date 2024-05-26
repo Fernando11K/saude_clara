@@ -2,7 +2,7 @@
   <q-page class="bg-grey-2 q-pa-md">
     <q-card class="bg-white q-pa-md">
       <CardTituloComponent :titulo="'Agenda Pessoal'" />
-      <AgendaPessoalCard title="Agenda Pessoal" />
+      <AgendaPessoalCard />
     </q-card>
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-btn fab icon="fa-solid fa-plus" color="blue-9" @click="abrirModal" />

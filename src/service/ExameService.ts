@@ -1,4 +1,4 @@
-import { exameRef, onValue, push } from 'src/boot/firebase';
+import { exameByIdRef, exameRef, onValue, push } from 'src/boot/firebase';
 import { Exame } from 'src/components/models';
 const salvarExame = (exame: Exame) => {
 
@@ -9,8 +9,9 @@ const buscarExames = async () => {
         const listaExames: Array<Exame> = []
         onValue(exameRef, (snapshot) => {
             snapshot.forEach((childSnapshot) => {
+                const childKey = childSnapshot.key;
                 const childData = childSnapshot.val();
-                listaExames.push(childData);
+                listaExames.push({ chave: childKey, ...childData });
 
             });
             resolve(listaExames);
@@ -24,4 +25,14 @@ const buscarExames = async () => {
     );
 }
 
-export { salvarExame, buscarExames }
+const buscarExamePorId = async (id: string) => {
+    return new Promise<Exame | null>((resolve, reject) => {
+        onValue(exameByIdRef(id), (snapshot) => {
+            resolve(snapshot.val());
+        }, (error) => {
+            reject(error);
+        });
+    });
+}
+
+export { salvarExame, buscarExames, buscarExamePorId }

@@ -1,4 +1,5 @@
 export interface Exame {
+  chave: string
   id: number;
   imagem: string;
   nome: string;
