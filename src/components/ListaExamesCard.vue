@@ -7,23 +7,21 @@
         {{ qtdExames }}
       </p>
       <q-list separator v-if="exames.length">
-        <q-intersection v-for="exame in exames" :key="exame.id" transition="jump-right">
-          <q-item v-if="exames.length" clickable v-ripple @click="detalhesExame(exame.chave)" class="q-py-md">
-            <q-item-section top thumbnail class="q-ml-none ">
-              <q-img :src="exame.imagem" :alt="`Image do exame de ${exame.nome}`" width="100px" />
+        <q-item v-for="exame in exames" :key="exame.id" v-if="exames.length" clickable v-ripple
+          @click="detalhesExame(exame.chave)" class="q-py-md">
+          <q-item-section top thumbnail class="q-ml-none ">
+            <q-img :src="exame.imagem" :alt="`Image do exame de ${exame.nome}`" width="100px" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>{{ exame.nome }}</q-item-label>
+            <q-item-label caption>{{ exame.resumo }}</q-item-label>
+          </q-item-section>
+          <q-item-section avatar>
+            <q-item-section avatar class="absolute-right">
+              <q-icon color="blue-grey-3" name="fa-solid fa-chevron-right" />
             </q-item-section>
-            <q-item-section>
-              <q-item-label>{{ exame.nome }}</q-item-label>
-              <q-item-label caption>{{ exame.resumo }}</q-item-label>
-            </q-item-section>
-            <q-item-section avatar>
-              <q-item-section avatar class="absolute-right">
-                <q-icon color="blue-grey-3" name="fa-solid fa-chevron-right" />
-              </q-item-section>
-            </q-item-section>
-          </q-item>
-        </q-intersection>
-
+          </q-item-section>
+        </q-item>
       </q-list>
       <q-list separator v-else>
 
