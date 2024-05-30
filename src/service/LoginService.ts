@@ -63,9 +63,9 @@ const logout = () => {
 const mostrarBoasVindas = () => {
     if (usuario.getNome) {
 
-        positive(`Seja bem-vindo, ${usuario.getNome}!`, 3000)
+        positive(`Seja bem-vindo(a), ${usuario.getNome}!`, 3000)
     } else {
-        positive('Seja bem-vindo!', 3000)
+        positive('Seja bem-vindo(a)!', 3000)
     }
 }
 const mensagensErroAutenticacao = (mensagemLogin: string) => {

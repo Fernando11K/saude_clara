@@ -1,13 +1,13 @@
 <template>
   <section class="row justify-center items-center">
     <div class="col-12 col-md-9 q-ma-md">
-      <InputBusca v-model="text" label="Buscar Exame" />
+      <InputBusca v-model="text" label="Buscar Exame" @update:modelValue="filtro" />
       <p class="q-pt-lg text-center" :class="q.platform.is.desktop ? 'text-body1' : 'text-body2'">
         <strong>Quantidade de exames catalogados:</strong>
         {{ qtdExames }}
       </p>
-      <q-list separator v-if="exames.length">
-        <q-item v-for="exame in exames" :key="exame.id" v-if="exames.length" clickable v-ripple
+      <q-list separator v-if="examesFiltrados.length">
+        <q-item v-for="exame in examesFiltrados" :key="exame.id" v-if="examesFiltrados.length" clickable v-ripple
           @click="detalhesExame(exame.chave)" class="q-py-md">
           <q-item-section top thumbnail class="q-ml-none ">
             <q-img :src="exame.imagem" :alt="`Image do exame de ${exame.nome}`" width="100px" />
@@ -25,14 +25,18 @@
       </q-list>
       <q-list separator v-else>
 
-
         <q-item v-for="index in 10" :key="index">
-          <q-item-section top thumbnail class="q-ml-none ">
+          <q-item-section top thumbnail class="q-ml-none q-py-md ">
             <q-skeleton width="100px" height="56px" />
           </q-item-section>
           <q-item-section>
             <q-skeleton type="text" height="24px" width="200px" />
             <q-skeleton type="text" height="24px" width="800px" />
+          </q-item-section>
+          <q-item-section avatar>
+            <q-item-section avatar class="absolute-right">
+              <q-icon color="blue-grey-3" name="fa-solid fa-chevron-right" />
+            </q-item-section>
           </q-item-section>
         </q-item>
       </q-list>
@@ -56,6 +60,7 @@ const loading = ref(false)
 const router = useRouter()
 
 const exames = ref<Array<Exame>>([])
+const examesFiltrados = ref(exames.value)
 buscarExames()
   .then((response) => {
     exames.value = response
@@ -74,6 +79,13 @@ const text = ref('')
 const detalhesExame = (chave: string) => {
 
   router.push(`detalhes-exame/${chave}`);
+}
+
+const filtro = (valor: string | number | null) => {
+  if (typeof valor === 'string') {
+
+    examesFiltrados.value = computed(() => (valor === '') ? exames.value : exames.value.filter((v: Exame) => v.nome.toLowerCase().indexOf(valor.toLowerCase()) > -1)).value;
+  }
 }
 
 </script>
