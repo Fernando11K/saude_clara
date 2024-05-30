@@ -1,4 +1,6 @@
 {
+  "name": "App Saúde Clara",
+  "short_name": "Saúde Clara",
   "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#027be3",
