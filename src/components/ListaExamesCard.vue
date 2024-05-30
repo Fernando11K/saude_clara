@@ -6,15 +6,15 @@
         <strong>Quantidade de exames catalogados:</strong>
         {{ qtdExames }}
       </p>
-      <q-list separator v-if="examesFiltrados.length">
+      <q-list separator v-if="exames.length">
         <q-item v-for="exame in examesFiltrados" :key="exame.id" v-if="examesFiltrados.length" clickable v-ripple
           @click="detalhesExame(exame.chave)" class="q-py-md">
           <q-item-section top thumbnail class="q-ml-none ">
-            <q-img :src="exame.imagem" :alt="`Image do exame de ${exame.nome}`" width="100px" />
+            <q-img :src="exame.imagem" :alt="`Image do exame de ${exame.nome}`" width="100px" height="56px" />
           </q-item-section>
           <q-item-section>
             <q-item-label>{{ exame.nome }}</q-item-label>
-            <q-item-label caption>{{ exame.resumo }}</q-item-label>
+            <q-item-label caption :class="{ 'ellipsis-2-lines': q.platform.is.mobile }">{{ exame.resumo }}</q-item-label>
           </q-item-section>
           <q-item-section avatar>
             <q-item-section avatar class="absolute-right">
@@ -26,7 +26,7 @@
       <q-list separator v-else>
 
         <q-item v-for="index in 10" :key="index">
-          <q-item-section top thumbnail class="q-ml-none q-py-md ">
+          <q-item-section top thumbnail class="q-py-md ">
             <q-skeleton width="100px" height="56px" />
           </q-item-section>
           <q-item-section>
@@ -45,41 +45,41 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { danger } from 'src/utils/alerta';
 import { buscarExames } from 'src/service/ExameService';
 import { Exame } from 'src/model/interfaces/Exame';
-
 import InputBusca from 'src/components/common/InputBusca.vue'
+
 const q = useQuasar()
 const loading = ref(false)
-
 const router = useRouter()
 
 const exames = ref<Array<Exame>>([])
-const examesFiltrados = ref(exames.value)
-buscarExames()
-  .then((response) => {
-    exames.value = response
-  }).catch(() => {
-    danger('Ocorreu um erro durante a busca de Exames!')
-  })
-  .finally(() => {
-    loading.value = false
-  })
-
-buscarExames()
-
+const examesFiltrados = ref<Array<Exame>>([])
 const qtdExames = computed(() => exames.value.length);
 
-const text = ref('')
-const detalhesExame = (chave: string) => {
+onMounted(async () => { await buscaExames() })
 
-  router.push(`detalhes-exame/${chave}`);
+const buscaExames = async () => {
+  await buscarExames()
+    .then((response: Array<Exame>) => {
+      exames.value = response
+    }).catch(() => {
+      danger('Ocorreu um erro durante a busca de Exames!')
+    })
+    .finally(() => {
+      loading.value = false
+    })
+  examesFiltrados.value = exames.value
 }
+
+
+const text = ref('')
+const detalhesExame = (chave: string) => { router.push(`detalhes-exame/${chave}`); }
 
 const filtro = (valor: string | number | null) => {
   if (typeof valor === 'string') {
