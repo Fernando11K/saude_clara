@@ -25,8 +25,8 @@
       @atualiza="buscaAgendamentoPorId" />
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-fab vertical-actions-align="right" icon="fa-solid fa-ellipsis" color="blue-9" direction="up">
-        <q-fab-action color="black" @click="excluir" icon="fa-solid fa-trash-can" label="Excluir Agendamento"
-          class="q-px-lg" />
+        <q-fab-action color="black" icon="fa-solid fa-trash-can" label="Excluir Agendamento" class="q-px-lg"
+          @click="excluiAgendamento(agenda.id)" />
         <q-fab-action color="negative" @click="cancelarAgendamento(agenda)" icon="fa-solid fa-ban"
           label="Cancelar Agendamento" class="q-px-md" />
         <q-fab-action color="primary" @click="editarAgenda()" icon="fa-solid fa-pencil" label="Editar Agendamento"
@@ -42,8 +42,7 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import ModalAgenda from 'src/components/agenda/ModalAgenda.vue';
 import { Agenda } from 'src/model/interfaces/Agenda';
-import { positive } from 'src/utils/alerta';
-import { atualizarAgendamento, buscarAgendamentoPorId } from 'src/service/AgendamentoService';
+import { atualizarAgendamento, buscarAgendamentoPorId, excluirAgendamento } from 'src/service/AgendamentoService';
 import EnumStatusAgendamento from 'src/model/types/EnumStatusAgenda';
 const props = defineProps(['idAgenda'])
 const agenda = ref()
@@ -54,7 +53,6 @@ onMounted(async () => {
 
 })
 const buscaAgendamentoPorId = async () => {
-
   await buscarAgendamentoPorId(props.idAgenda)
     .then((response) => {
       agenda.value = response
@@ -62,10 +60,7 @@ const buscaAgendamentoPorId = async () => {
 
 }
 const router = useRouter();
-const excluir = () => {
-  positive(`Agendamento de ${agenda.value.exame.nome} excluído de sua agenda!`)
-  voltar()
-}
+
 const voltar = () => {
   router.push('/agenda-pessoal');
 };
@@ -84,6 +79,12 @@ const abrirModal = () => {
 const cancelarAgendamento = async (agenda: Agenda) => {
   await atualizarAgendamento(agenda)
   buscaAgendamentoPorId()
+}
+const excluiAgendamento = async (idAgendamento: string_) => {
+  await excluirAgendamento(idAgendamento)
+
+  voltar()
+
 }
 const getBadgeColor = (status: string) => {
   switch (status) {

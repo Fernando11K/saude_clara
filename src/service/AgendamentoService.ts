@@ -2,7 +2,7 @@ import { agendamentoByIdRef, agendamentoByUIdRef, agendamentoRef, push } from 's
 import { Agenda } from 'src/model/interfaces/Agenda';
 import EnumStatusAgendamento from 'src/model/types/EnumStatusAgenda';
 import { danger, positive } from 'src/utils/alerta';
-import { set, onValue, update } from 'firebase/database';
+import { set, onValue, update, remove } from 'firebase/database';
 import { ref } from 'vue';
 import { usuarioStore } from 'src/stores/usuario-store';
 import { buscarExamePorId } from './ExameService';
@@ -38,15 +38,14 @@ const buscarAgendamentoPorId = async (idAgendamento) => {
     loading.value = true
 
     return new Promise<Agenda | null>((resolve, reject) => {
+
         onValue(agendamentoByIdRef(idAgendamento, usuario.getId), async (snapshot) => {
-            const exame = await buscarExamePorId(snapshot.val().idExame)
+            const exame = await buscarExamePorId(snapshot.val()?.idExame)
             resolve({ id: snapshot.key, ...snapshot.val(), exame });
         }, (error) => {
             reject(error);
         });
-        {
-            //    onlyOnce: true
-        }
+
         loading.value = false
     });
 
@@ -104,9 +103,27 @@ const atualizarAgendamento = async (agendamento: Agenda) => {
             loading.value = false
         })
 
-
-
 }
 
 
-export { criarAgendamento, inserirAgendamento, buscarAgendamentoPorUId, buscarAgendamentoPorId, atualizarAgendamento, loading }
+const excluirAgendamento = async (idAgendamento: string) => {
+    loading.value = true;
+
+    await remove(agendamentoByIdRef(idAgendamento, usuario.getId))
+        .then(() => {
+
+            positive('Agendamento excluído com sucesso!');
+        })
+        .catch(() => {
+
+            danger('Ocorreu um erro ao excluir o agendamento.');
+        })
+        .finally(() => {
+
+            loading.value = false;
+        })
+
+};
+
+
+export { criarAgendamento, inserirAgendamento, buscarAgendamentoPorUId, buscarAgendamentoPorId, atualizarAgendamento, excluirAgendamento, loading }
