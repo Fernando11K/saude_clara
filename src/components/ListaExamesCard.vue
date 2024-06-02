@@ -7,6 +7,7 @@
         {{ qtdExames }}
       </p>
       <q-list separator v-if="exames.length">
+
         <q-item v-for="exame in examesFiltrados" :key="exame.id" v-if="examesFiltrados.length" clickable v-ripple
           @click="detalhesExame(exame.chave)" class="q-py-md">
           <q-item-section top thumbnail class="q-ml-none ">
@@ -67,6 +68,9 @@ onMounted(async () => { await buscaExames() })
 
 const buscaExames = async () => {
   exames.value = q.localStorage.getItem('exames') || []
+  examesFiltrados.value = exames.value
+
+
   await buscarExames()
     .then((response: Array<Exame>) => {
       exames.value = response
