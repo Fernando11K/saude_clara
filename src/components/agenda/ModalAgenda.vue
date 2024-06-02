@@ -45,6 +45,7 @@ import { criarAgendamento, inserirAgendamento } from 'src/service/AgendamentoSer
 const q = useQuasar()
 const dialog = ref(false)
 const props = defineProps(['label', 'agendamento'])
+const emits = defineEmits(['atualiza'])
 const observacao = ref('')
 const desabilitaBotao = ref(false)
 const loading = ref(false)
@@ -77,6 +78,7 @@ const agendar = () => {
         criarAgendamento(payload)
     }
     dialog.value = false
+    emits('atualiza')
 
 }
 watchEffect(() => props.agendamento)

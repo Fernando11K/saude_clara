@@ -20,7 +20,8 @@
       <div class="text-h6 text-bold">Notas:</div>
       <p>{{ agenda.observacao }}</p>
     </div>
-    <ModalAgenda :agendamento="agenda" ref="modalAgendaRef" label="Formulário Agenda" />
+    <ModalAgenda :agendamento="agenda" ref="modalAgendaRef" label="Formulário Agenda"
+      @atualiza="buscaAgendamentoPorId" />
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-fab vertical-actions-align="right" icon="fa-solid fa-ellipsis" color="blue-9" direction="up">
         <q-fab-action color="negative" @click="excluir" icon="fa-solid fa-trash-can" label="Excluir Agendamento" />
@@ -44,13 +45,17 @@ const agenda = ref()
 
 onMounted(async () => {
 
+  await buscaAgendamentoPorId()
+
+})
+const buscaAgendamentoPorId = async () => {
+
   await buscarAgendamentoPorId(props.idAgenda)
     .then((response) => {
       agenda.value = response
     })
 
-})
-
+}
 const router = useRouter();
 const excluir = () => {
   positive(`Agendamento de ${agenda.value.exame.nome} excluído de sua agenda!`)

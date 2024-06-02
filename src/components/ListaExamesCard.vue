@@ -69,8 +69,6 @@ onMounted(async () => { await buscaExames() })
 const buscaExames = async () => {
   exames.value = q.localStorage.getItem('exames') || []
   examesFiltrados.value = exames.value
-
-
   await buscarExames()
     .then((response: Array<Exame>) => {
       exames.value = response
