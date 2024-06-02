@@ -79,6 +79,13 @@ const agendar = () => {
     }
     dialog.value = false
     emits('atualiza')
+    limparDados()
+
+}
+const limparDados = () => {
+    exame.value = ''
+    data.value = ''
+    observacao.value = ''
 
 }
 watchEffect(() => props.agendamento)

@@ -37,7 +37,9 @@ const router = useRouter();
 const text = ref('')
 const tab = ref('examesAgendados');
 const listAgendamentos = ref([])
+const agendasFiltradas = ref([])
 const buscarAgenda = async () => {
+
   listAgendamentos.value = []
   await buscarAgendamentoPorUId()
     .then((response) => {
@@ -49,11 +51,13 @@ const buscarAgenda = async () => {
           })
       }
       )
+
     })
+  agendasFiltradas.value = listAgendamentos.value
 }
 
 buscarAgenda()
-const agendasFiltradas = ref(listAgendamentos.value)
+
 
 const detalhesAgenda = (idAgenda: number) => {
 
@@ -66,5 +70,6 @@ const filtro = (valor: string | number | null) => {
     agendasFiltradas.value = computed(() => (valor === '') ? listAgendamentos.value : listAgendamentos.value.filter((v: Agenda) => v.exame.nome.toLowerCase().indexOf(valor.toLowerCase()) > -1)).value;
   }
 }
+defineExpose({ buscarAgenda })
 
 </script>
