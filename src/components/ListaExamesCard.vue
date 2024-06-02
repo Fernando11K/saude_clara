@@ -66,6 +66,7 @@ const qtdExames = computed(() => exames.value.length);
 onMounted(async () => { await buscaExames() })
 
 const buscaExames = async () => {
+  exames.value = q.localStorage.getItem('exames') || []
   await buscarExames()
     .then((response: Array<Exame>) => {
       exames.value = response
@@ -73,7 +74,6 @@ const buscaExames = async () => {
 
     }).catch(() => {
       danger('Ocorreu um erro durante a busca de Exames!')
-      exames.value = q.localStorage.getItem('exames')
     })
     .finally(() => {
       loading.value = false
