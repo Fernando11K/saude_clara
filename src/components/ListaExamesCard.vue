@@ -14,7 +14,8 @@
           </q-item-section>
           <q-item-section>
             <q-item-label>{{ exame.nome }}</q-item-label>
-            <q-item-label caption :class="{ 'ellipsis-2-lines': q.platform.is.mobile }">{{ exame.resumo }}</q-item-label>
+            <q-item-label caption :class="{ 'ellipsis-2-lines': q.platform.is.mobile }">{{ exame.resumo
+              }}</q-item-label>
           </q-item-section>
           <q-item-section avatar>
             <q-item-section avatar class="absolute-right">
@@ -68,8 +69,11 @@ const buscaExames = async () => {
   await buscarExames()
     .then((response: Array<Exame>) => {
       exames.value = response
+      q.localStorage.set('exames', exames.value)
+
     }).catch(() => {
       danger('Ocorreu um erro durante a busca de Exames!')
+      exames.value = q.localStorage.getItem('exames')
     })
     .finally(() => {
       loading.value = false
