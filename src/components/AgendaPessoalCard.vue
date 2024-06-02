@@ -12,7 +12,7 @@
       <q-tab-panels v-model="tab" animated swipeable>
         <q-tab-panel name="examesAgendados">
           <InputBusca v-model="modelValue" label="Buscar Agenda" @update:modelValue="filtro" :disable="loading" />
-          <ListAgendamentos :agendamentos="agendasFiltradas" label="Agendado" @datalhes="detalhesAgenda" />
+          <ListAgendamentos :agendamentos="agendasFiltradas" @datalhes="detalhesAgenda" />
         </q-tab-panel>
         <q-tab-panel name="meuHistorico">
           <InputBusca v-model="text" label="Buscar Agenda" @update:modelValue="filtro" :disable="loading" />

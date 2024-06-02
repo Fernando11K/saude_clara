@@ -5,14 +5,15 @@
             class="q-pa-none q-py-md">
             <q-item-section>
                 <q-item-label>{{ agenda.exame.nome }}</q-item-label>
-                <q-item-label caption>{{ agenda.local || 'Hospital Legal - SP' }}</q-item-label>
+                <q-item-label caption>{{ agenda.local }}</q-item-label>
             </q-item-section>
 
             <q-item-section side top>
                 <q-item-label caption class="q-py-sm">{{
                     agenda.data
                     }}</q-item-label>
-                <q-badge rounded color="blue-grey" :label="label" class="q-my-sm q-py-sm" />
+                <q-badge rounded color="blue-grey" :label="EnumStatusAgendamento[agenda.status]"
+                    class="q-my-sm q-py-sm" />
             </q-item-section>
 
             <q-item-section avatar>
@@ -24,9 +25,10 @@
     </q-list>
 </template>
 <script setup lang="ts">
+import EnumStatusAgendamento from 'src/model/types/EnumStatusAgenda';
 import { computed } from 'vue';
 
-const props = defineProps(['agendamentos', 'label'])
+const props = defineProps(['agendamentos'])
 const qtdAgendas = computed(() => props.agendamentos.length);
 
 const emits = defineEmits(['datalhes'])

@@ -72,7 +72,7 @@ const criarAgendamento = (agendamento: Agenda) => {
 
 const inserirAgendamento = (agendamento: Agenda) => {//Substitui os dados    
     if (agendamento.id)
-        set(agendamentoByIdRef(agendamento.id, usuario.getId), { ...agendamento, dataAtualizacao: new Date().toLocaleString('pt-BR').replace(',', ''), status: EnumStatusAgendamento.Pendente })
+        set(agendamentoByIdRef(agendamento.id, usuario.getId), { ...agendamento, local: 'Hospital das Clinicas - SP', dataAtualizacao: new Date().toLocaleString('pt-BR').replace(',', ''), status: EnumStatusAgendamento.Pendente })
             .then(() => {
                 positive(`Agendamento atualizado com sucesso!`)
             })

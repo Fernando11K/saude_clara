@@ -46,7 +46,6 @@ onMounted(async () => {
 
   await buscarAgendamentoPorId(props.idAgenda)
     .then((response) => {
-      console.log(response)
       agenda.value = response
     })
 

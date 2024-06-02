@@ -3,6 +3,7 @@
         <q-dialog v-model="dialog" :backdrop-filter="'blur(4px)'" transition-show="slide-up" transition-hide="rotate">
             <q-card ref="card" style="min-width: 350px; min-height: 300px;" class="bg-grey-1">
                 <q-form @submit.prevent="agendar">
+
                     <q-card-section class="bg-primary text-white ">
                         <div class="text-h6 row justify-between">
                             <q-icon class="q-mr-md q-pt-xs" size="sm" name="fa-regular fa-calendar-days" />{{ label }}
@@ -13,8 +14,7 @@
                     <q-card-section class="row q-gutter-y-md">
                         <q-select :modelValue="'Hospital das Clinicas - SP'" :filled="q.platform.is.desktop"
                             :outlined="q.platform.is.mobile" :rounded="q.platform.is.mobile"
-                            :dense="q.platform.is.mobile" disabled class="col-12" />
-
+                            :dense="q.platform.is.mobile" disabled class="col-12" readonly />
                         <SelectExame v-model="exame" :label="'Exame:'" class="col-12" />
                         <InputDate v-model="data" class="col-12" />
                         <q-input v-model="observacao" :outlined="q.platform.is.mobile" :filled="q.platform.is.desktop"
@@ -53,10 +53,10 @@ const exame = ref('')
 const data = ref('')
 const carregaDados = async () => {
     if (ehEditar.value) {
-        exame.value = props.agendamento.exame.nome
-        data.value = props.agendamento.data
-        console.log(data.value)
-        observacao.value = props.agendamento.notas
+        const { data: dataAgendamento, observacao: observacaoAgendamento, idExame, exame: exameRecebido } = props.agendamento
+        exame.value = { label: exameRecebido.nome, value: idExame }
+        data.value = dataAgendamento
+        observacao.value = observacaoAgendamento
     }
 }
 const atualiza = () => { dialog.value = !dialog.value }
