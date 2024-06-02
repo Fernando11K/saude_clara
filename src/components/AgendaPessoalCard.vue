@@ -11,11 +11,11 @@
       <q-separator />
       <q-tab-panels v-model="tab" animated swipeable>
         <q-tab-panel name="examesAgendados">
-          <InputBusca v-model="modelValue" label="Buscar Agenda" @update:modelValue="filtro" />
+          <InputBusca v-model="modelValue" label="Buscar Agenda" @update:modelValue="filtro" :disable="loading" />
           <ListAgendamentos :agendamentos="agendasFiltradas" label="Agendado" @datalhes="detalhesAgenda" />
         </q-tab-panel>
         <q-tab-panel name="meuHistorico">
-          <InputBusca v-model="text" label="Buscar Agenda" @update:modelValue="filtro" />
+          <InputBusca v-model="text" label="Buscar Agenda" @update:modelValue="filtro" :disable="loading" />
           <ListAgendamentos :agendamentos="agendasFiltradas" label="Realizado" @datalhes="detalhesAgenda" />
         </q-tab-panel>
       </q-tab-panels>
@@ -29,13 +29,31 @@ import ListAgendamentos from 'src/components/agenda/ListAgendamentos.vue'
 import { computed, ref } from 'vue';
 
 import { useRouter } from 'vue-router';
-import agendamentos from 'src/assets/agendamentos';
 import { Agenda } from 'src/model/interfaces/Agenda';
+import { buscarAgendamentoPorUId, loading } from 'src/service/AgendamentoService';
+import { buscarExamePorId } from 'src/service/ExameService';
 const modelValue = ref('')
 const router = useRouter();
-const agendasFiltradas = ref(agendamentos)
 const text = ref('')
 const tab = ref('examesAgendados');
+const listAgendamentos = ref([])
+const buscarAgenda = async () => {
+  listAgendamentos.value = []
+  await buscarAgendamentoPorUId()
+    .then((response) => {
+      response.map(agendamento => {
+        return buscarExamePorId(agendamento.idExame)
+          .then((exame) => {
+
+            listAgendamentos.value.push({ ...agendamento, exame })
+          })
+      }
+      )
+    })
+}
+
+buscarAgenda()
+const agendasFiltradas = ref(listAgendamentos.value)
 
 const detalhesAgenda = (idAgenda: number) => {
 
@@ -45,7 +63,8 @@ const detalhesAgenda = (idAgenda: number) => {
 const filtro = (valor: string | number | null) => {
   if (typeof valor === 'string') {
 
-    agendasFiltradas.value = computed(() => (valor === '') ? agendamentos : agendamentos.filter((v: Agenda) => v.exame.nome.toLowerCase().indexOf(valor.toLowerCase()) > -1)).value;
+    agendasFiltradas.value = computed(() => (valor === '') ? listAgendamentos.value : listAgendamentos.value.filter((v: Agenda) => v.exame.nome.toLowerCase().indexOf(valor.toLowerCase()) > -1)).value;
   }
 }
+
 </script>

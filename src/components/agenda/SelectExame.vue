@@ -2,14 +2,13 @@
     <q-select :modelValue="modelValue" @update:modelValue='atualiza' :options="opcoesExames" :label="label" use-input
         clearable :filled="q.platform.is.desktop" :outlined="q.platform.is.mobile" :rounded="q.platform.is.mobile"
         :dense="q.platform.is.mobile" :loading="loading" behavior="menu" @filter="filtro" requoired class="ellipsis" />
-
 </template>
 
 <script setup lang="ts">
 import { QSelectOption, useQuasar } from 'quasar';
 import { buscarExames } from 'src/service/ExameService'
 import { ref } from 'vue';
-import { Exame } from '../../model/models';
+import { Exame } from 'src/model/interfaces/Exame';
 import { danger } from 'src/utils/alerta'
 defineProps(['modelValue', 'label'])
 const q = useQuasar()
@@ -19,7 +18,7 @@ const atualiza = (valor: string | number | null) => emits('update:modelValue', v
 
 buscarExames()
     .then((response) => {
-        listaExames.value = response.map((exame: Exame) => ({ value: exame.id, label: exame.nome }));
+        listaExames.value = response.map((exame: Exame) => ({ value: exame.chave, label: exame.nome }));
     }).catch(() => {
         danger('Ocorreu um erro durante a busca de Exames!')
     })

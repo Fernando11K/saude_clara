@@ -48,12 +48,16 @@ const exibeMensagemValidacao = () => {
   return 'Data em formato inválido!'
 }
 
-const retornaDataHorarioAtual = () => new Date().setDate(new Date().getDate() + 1)
-const data6MesFuturos = date.adjustDate(retornaDataHorarioAtual(), { months: 6, hours: 23, minutes: 59 })
+const retornaDataHorarioAtual = () => new Date()
+const data6MesFuturos = date.addToDate(retornaDataHorarioAtual(), { months: 6, hours: 23, minutes: 59 })
 const opcoesData = (data: string) => {
+  const diaDaSemana = new Date(data).getDay()
+  if (diaDaSemana === 0 || diaDaSemana === 6) {
+    return false;
+  }
 
   const dataAtual = retornaDataHorarioAtual();
-  return date.isBetweenDates(new Date(data.split('/')?.toString()), dataAtual, data6MesFuturos, { onlyDate: true, inclusiveFrom: true, inclusiveTo: true });
+  return date.isBetweenDates(new Date(data.split('/')?.toString()), dataAtual, data6MesFuturos, { onlyDate: true, inclusiveFrom: false, inclusiveTo: true });
 }
 
 const opcoesHorario = (hora: number, minutos: number) => validacoesHorarioAgendamento(hora, minutos);

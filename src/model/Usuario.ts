@@ -1,4 +1,5 @@
 export default class Usuario {
+    private _id: string | null;
     private _nome: string | null;
     private _nomeCompleto: string | null;
     private _email: string | null;
@@ -7,11 +8,16 @@ export default class Usuario {
 
 
     constructor() {
+        this._id = null
         this._nome = null;
         this._nomeCompleto = null;
         this._email = null;
         this._emailVerificado = false;
         this._urlFoto = null;
+    }
+
+    get id(): string | null {
+        return this._id;
     }
 
     get nome(): string | null {
@@ -32,6 +38,10 @@ export default class Usuario {
 
     get email(): string | null {
         return this._email;
+    }
+
+    set id(email: string | null) {
+        this.id = email;
     }
 
     set email(email: string | null) {

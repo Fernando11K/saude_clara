@@ -11,11 +11,14 @@
                     </q-card-section>
 
                     <q-card-section class="row q-gutter-y-md">
+                        <q-select :modelValue="'Hospital das Clinicas - SP'" :filled="q.platform.is.desktop"
+                            :outlined="q.platform.is.mobile" :rounded="q.platform.is.mobile"
+                            :dense="q.platform.is.mobile" disabled class="col-12" />
+
                         <SelectExame v-model="exame" :label="'Exame:'" class="col-12" />
                         <InputDate v-model="data" class="col-12" />
                         <q-input v-model="observacao" :outlined="q.platform.is.mobile" :filled="q.platform.is.desktop"
                             :dense="q.platform.is.mobile" label="Observações:" type="textarea" class="col-12" />
-
                     </q-card-section>
 
                     <q-card-actions align="right" class="row justify-around">
@@ -32,12 +35,12 @@
         </q-dialog>
     </div>
 </template>
-<script setup>
-import { ref } from 'vue';
-import { positive } from 'src/utils/alerta'
+<script setup lang="ts">
+import { ref, watchEffect } from 'vue';
 import InputDate from 'src/components/common/InputDate.vue'
 import SelectExame from 'src/components//agenda/SelectExame.vue'
 import { useQuasar } from 'quasar';
+import { criarAgendamento, inserirAgendamento } from 'src/service/AgendamentoService';
 
 const q = useQuasar()
 const dialog = ref(false)
@@ -48,11 +51,11 @@ const loading = ref(false)
 const ehEditar = ref(false)
 const exame = ref('')
 const data = ref('')
-const carregaDados = () => {
+const carregaDados = async () => {
     if (ehEditar.value) {
-
         exame.value = props.agendamento.exame.nome
-        data.value = props.agendamento.dataAgendamento
+        data.value = props.agendamento.data
+        console.log(data.value)
         observacao.value = props.agendamento.notas
     }
 }
@@ -67,8 +70,14 @@ verificaSeEhEdicao()
 carregaDados()
 defineExpose({ atualiza })
 const agendar = () => {
-    ehEditar.value ? positive('Editado com sucesso!') : positive('Agendado com sucesso!')
+    const payload = { idExame: exame.value.value, data: data.value, observacao: observacao.value };
+    if (ehEditar.value) {
+        inserirAgendamento({ ...payload, id: props.agendamento.id })
+    } else {
+        criarAgendamento(payload)
+    }
     dialog.value = false
-}
 
+}
+watchEffect(() => props.agendamento)
 </script>

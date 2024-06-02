@@ -1,12 +1,15 @@
+import EnumStatusAgendamento from "../types/EnumStatusAgenda";
 import { Exame } from "./Exame";
 
 export interface Agenda {
-    id: number,
+    id?: string,
+    idSolicitante: string,
     idExame: number,
     exame: Exame,
     local: string,
-    dataAgendamento: string,
-    notas: string,
-    realizado: boolean
+    data: string,
+    observacao: string,
+    realizado: boolean,
+    status?: EnumStatusAgendamento
 }
 

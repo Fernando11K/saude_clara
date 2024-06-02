@@ -5,12 +5,12 @@
             class="q-pa-none q-py-md">
             <q-item-section>
                 <q-item-label>{{ agenda.exame.nome }}</q-item-label>
-                <q-item-label caption>{{ agenda.local }}</q-item-label>
+                <q-item-label caption>{{ agenda.local || 'Hospital Legal - SP' }}</q-item-label>
             </q-item-section>
 
             <q-item-section side top>
                 <q-item-label caption class="q-py-sm">{{
-                    agenda.dataAgendamento
+                    agenda.data
                     }}</q-item-label>
                 <q-badge rounded color="blue-grey" :label="label" class="q-my-sm q-py-sm" />
             </q-item-section>

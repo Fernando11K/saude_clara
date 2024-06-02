@@ -1,7 +1,7 @@
 <template>
   <Suspense>
     <q-page class="row justify-center">
-      <div class="q-gutter-y-md col-12 col-md-9 ">
+      <div class="q-gutter-y-md col-12 col-md-9">
         <q-card style="height: 100%">
           <q-tabs v-model="tab" dense class="text-grey q-py-md" active-color="blue-9" indicator-color="primary"
             align="justify" narrow-indicator>
