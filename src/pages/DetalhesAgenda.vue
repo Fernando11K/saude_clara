@@ -10,7 +10,8 @@
         {{ agenda.exame.nome }}
       </div>
       <div class="q-my-md">
-        <q-badge rounded color="primary" label="Agendado" class="q-py-sm" />
+        <q-badge rounded :color="getBadgeColor(EnumStatusAgendamento[agenda.status])"
+          :label="EnumStatusAgendamento[agenda.status]" class="q-py-sm" />
       </div>
 
       <div class="text-h6 text-bold">Local:</div>
@@ -24,9 +25,12 @@
       @atualiza="buscaAgendamentoPorId" />
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-fab vertical-actions-align="right" icon="fa-solid fa-ellipsis" color="blue-9" direction="up">
-        <q-fab-action color="negative" @click="excluir" icon="fa-solid fa-trash-can" label="Excluir Agendamento" />
-        <q-fab-action color="primary" @click="editarAgenda(agenda)" icon="fa-solid fa-pencil"
-          label="Editar Agendamento" />
+        <q-fab-action color="black" @click="excluir" icon="fa-solid fa-trash-can" label="Excluir Agendamento"
+          class="q-px-lg" />
+        <q-fab-action color="negative" @click="cancelarAgendamento(agenda)" icon="fa-solid fa-ban"
+          label="Cancelar Agendamento" class="q-px-md" />
+        <q-fab-action color="primary" @click="editarAgenda()" icon="fa-solid fa-pencil" label="Editar Agendamento"
+          class="q-px-lg" />
       </q-fab>
     </q-page-sticky>
   </q-page>
@@ -39,7 +43,8 @@ import { useRouter } from 'vue-router';
 import ModalAgenda from 'src/components/agenda/ModalAgenda.vue';
 import { Agenda } from 'src/model/interfaces/Agenda';
 import { positive } from 'src/utils/alerta';
-import { buscarAgendamentoPorId } from 'src/service/AgendamentoService';
+import { atualizarAgendamento, buscarAgendamentoPorId } from 'src/service/AgendamentoService';
+import EnumStatusAgendamento from 'src/model/types/EnumStatusAgenda';
 const props = defineProps(['idAgenda'])
 const agenda = ref()
 
@@ -65,7 +70,7 @@ const voltar = () => {
   router.push('/agenda-pessoal');
 };
 
-const editarAgenda = (agenda: Agenda) => {
+const editarAgenda = () => {
   abrirModal();
 }
 const modalAgendaRef = ref<typeof ModalAgenda | null>(null)
@@ -74,6 +79,26 @@ const abrirModal = () => {
   if (modalAgendaRef.value) {
 
     modalAgendaRef.value.atualiza()
+  }
+}
+const cancelarAgendamento = async (agenda: Agenda) => {
+  await atualizarAgendamento(agenda)
+  buscaAgendamentoPorId()
+}
+const getBadgeColor = (status: string) => {
+  switch (status) {
+    case 'Pendente':
+      return 'primary';
+    case 'Confirmado':
+      return 'success';
+    case 'Cancelado':
+      return 'red-8';
+    case 'Concluído':
+      return 'grey';
+    case 'Reagendado':
+      return 'warning';
+    default:
+      return '';
   }
 }
 

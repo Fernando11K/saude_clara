@@ -4,14 +4,14 @@
         <q-item v-for="agenda in agendamentos" :key="agenda.id" clickable v-ripple @click="exibirDetalhes(agenda.id)"
             class="q-pa-none q-py-md">
             <q-item-section>
-                <q-item-label>{{ agenda.exame.nome }}</q-item-label>
+                <q-item-label>{{ agenda.exame?.nome }}</q-item-label>
                 <q-item-label caption>{{ agenda.local }}</q-item-label>
             </q-item-section>
 
             <q-item-section side top>
                 <q-item-label caption class="q-py-sm">{{
                     agenda.data
-                    }}</q-item-label>
+                }}</q-item-label>
                 <q-badge rounded color="blue-grey" :label="EnumStatusAgendamento[agenda.status]"
                     class="q-my-sm q-py-sm" />
             </q-item-section>

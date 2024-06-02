@@ -2,12 +2,15 @@ import { agendamentoByIdRef, agendamentoByUIdRef, agendamentoRef, push } from 's
 import { Agenda } from 'src/model/interfaces/Agenda';
 import EnumStatusAgendamento from 'src/model/types/EnumStatusAgenda';
 import { danger, positive } from 'src/utils/alerta';
-import { set, onValue } from 'firebase/database';
+import { set, onValue, update } from 'firebase/database';
 import { ref } from 'vue';
 import { usuarioStore } from 'src/stores/usuario-store';
 import { buscarExamePorId } from './ExameService';
+import { spinnerFacebook } from 'src/utils/spinner';
 const loading = ref(false)
 const usuario = usuarioStore()
+const retornarMensagem = (msg: string) => `<p class="text-h6">Tentando ${msg}. Aguarde...</p>`
+
 
 const buscarAgendamentoPorUId = async () => {
     loading.value = true
@@ -85,5 +88,25 @@ const inserirAgendamento = (agendamento: Agenda) => {//Substitui os dados
 
 }
 
+const atualizarAgendamento = async (agendamento: Agenda) => {
+    loading.value = true
+    spinnerFacebook.mostrar(retornarMensagem('cancelar agendamento'))
+    await update(agendamentoByIdRef(agendamento.id, usuario.getId), { status: 2 })
+        .then(() => {
+            positive('Agendamento cancelado com sucesso!')
+        })
+        .catch(() => {
+            danger('Ocorreu um erro ao realizar a atualização!')
+        })
+        .finally(() => {
+            spinnerFacebook.ocultar()
 
-export { criarAgendamento, inserirAgendamento, buscarAgendamentoPorUId, buscarAgendamentoPorId, loading }
+            loading.value = false
+        })
+
+
+
+}
+
+
+export { criarAgendamento, inserirAgendamento, buscarAgendamentoPorUId, buscarAgendamentoPorId, atualizarAgendamento, loading }
